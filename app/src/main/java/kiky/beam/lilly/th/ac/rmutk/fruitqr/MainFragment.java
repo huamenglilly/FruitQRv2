@@ -1,10 +1,12 @@
 package kiky.beam.lilly.th.ac.rmutk.fruitqr;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +22,7 @@ import org.json.JSONObject;
 
 /**
  * A simple {@link Fragment} subclass.
+
  */
 public class MainFragment extends Fragment {
 
@@ -32,20 +35,42 @@ public class MainFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+//        Check Status
+        checkStatus();
 //        Register Controllor //เป็นการคลิกปุ่ม
-        TextView textView = getView().findViewById(R.id.txtRegister); //กด shift+ctrl+enter เติมส่วนที่ขาด //alt+1 กดปิดหน้าโปรเจค
-        textView.setOnClickListener(new View.OnClickListener() {
+//        registerController();
+
+        //  Login Controller
+        loginController();
+
+
+    }   //Main Method เมธอดแรกในการทำงาน
+
+    private void checkStatus() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setCancelable(false);
+        builder.setTitle("Choose Work");
+        builder.setMessage("Please Choose Work?");
+        builder.setNegativeButton("QR Code", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(DialogInterface dialog, int which) {
+                startActivity(new Intent(getActivity(),QRActivity.class));
+                getActivity().finish();
 
 
-//                Replace Fragment
-
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contentMainFragment, new RegisterFragment()).addToBackStack(null).commit();
             }
         });
+        builder.setPositiveButton("Login", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
 
-      //  Login Controller
+    }
+
+    private void loginController() {
         Button button = getView().findViewById(R.id.btnLogin);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,7 +115,7 @@ public class MainFragment extends Fragment {
                             myAlertDialog.normalDialog("User False", "No This User in My Database");
                         }else if (password.equals(truePassword)) {
                             Toast.makeText(getActivity(),"Welcome"+name+""+surname,Toast.LENGTH_SHORT).show();;
-                            Intent intent = new Intent(getActivity(),ServiceActivity.class);
+                            Intent intent = new Intent(getActivity(), ServiceActivity.class);
                             startActivity(intent);
                             getActivity().finish(); //คำสั่งปิดแอพ
 
@@ -107,17 +132,26 @@ public class MainFragment extends Fragment {
                     }
 
 
-
-
                 }
 
 
             }
         });
+    }
 
-
-
-    }   //Main Method เมธอดแรกในการทำงาน
+////    private void registerController() {
+////        TextView textView = getView().findViewById(R.id.txtRegister); //กด shift+ctrl+enter เติมส่วนที่ขาด //alt+1 กดปิดหน้าโปรเจค
+////        textView.setOnClickListener(new View.OnClickListener() {
+////            @Override
+////            public void onClick(View v) {
+//
+//
+////                Replace Fragment
+//
+//                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contentMainFragment, new RegisterFragment()).addToBackStack(null).commit();
+//            }
+//        });
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
