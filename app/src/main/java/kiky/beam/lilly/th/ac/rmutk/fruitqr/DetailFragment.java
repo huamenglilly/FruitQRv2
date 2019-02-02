@@ -41,10 +41,6 @@ public class DetailFragment extends Fragment {
 
         qrCode = getArguments().getString("QRcode");
 
-//        Show Rsult โชว์
-
-        TextView textView = getView().findViewById(R.id.txtResult);
-        textView.setText(qrCode);
 
     } //Main Method
 
