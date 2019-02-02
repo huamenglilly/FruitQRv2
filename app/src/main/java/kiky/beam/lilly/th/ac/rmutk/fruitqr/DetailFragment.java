@@ -1,10 +1,12 @@
 package kiky.beam.lilly.th.ac.rmutk.fruitqr;
 
 
+import android.content.Intent;
 import android.os.Binder;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,10 +48,31 @@ public class DetailFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        //Create Tooble
+        createTooble();
+
         showView();
 
 
     } //Main Method
+
+    //ทำให้ขึ้น toolbar หน้าที่ อ่าน QR
+    private void createTooble() {
+        Toolbar toolbar = getView().findViewById(R.id.toolabarDetail);
+        ((QRActivity)getActivity()).setSupportActionBar(toolbar);
+        ((QRActivity)getActivity()).getSupportActionBar().setTitle("Detail");
+        ((QRActivity)getActivity()).getSupportActionBar().setHomeButtonEnabled(true); //ทำปุ่มลูกศรย้อนกลับ
+        ((QRActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true); //ทำให้ลูกศรมันมีวาปๆ
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() { //ทำปุ่มย้อนกลับไปหน้าที่เริ่มคือ QR
+            @Override
+            public void onClick(View v) {
+                Intent intent = getActivity().getIntent();
+                getActivity().finish();
+                startActivity(intent);
+
+            }
+        });
+    }
 
     private void showView() {
         qrCode = getArguments().getString("QRcode");
@@ -58,6 +81,7 @@ public class DetailFragment extends Fragment {
 //            Have QR codeValue
             try {
 
+                //
                 Myconstant myconstant = new Myconstant();
                 GetDataWhereOneColumn getDataWhereOneColumn = new GetDataWhereOneColumn(getActivity());
                 getDataWhereOneColumn.execute("QR", qrCode, myconstant.getUrlGetDataWhereQR());
