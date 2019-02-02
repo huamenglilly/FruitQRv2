@@ -98,7 +98,7 @@ public class MainFragment extends Fragment {
                         Log.d("6janV1","json ==> " + jsonString);
 
                         boolean b = true;
-                        String truePassword = null, name = null, surname = null;
+                        String truePassword = null, name = null;
 
                         JSONArray jsonArray = new JSONArray(jsonString);
                         for (int i=0; i<jsonArray.length(); i += 1){
@@ -107,14 +107,14 @@ public class MainFragment extends Fragment {
                                 b = false;
                                 truePassword = jsonObject.getString("Password");
                                 name = jsonObject.getString("Name");
-                                surname = jsonObject.getString("Surname");
+
                             }
                         }
 
                         if (b){
                             myAlertDialog.normalDialog("User False", "No This User in My Database");
                         }else if (password.equals(truePassword)) {
-                            Toast.makeText(getActivity(),"Welcome"+name+""+surname,Toast.LENGTH_SHORT).show();;
+                            Toast.makeText(getActivity(),"Welcome"+name,Toast.LENGTH_SHORT).show();;
                             Intent intent = new Intent(getActivity(), ServiceActivity.class);
                             startActivity(intent);
                             getActivity().finish(); //คำสั่งปิดแอพ
