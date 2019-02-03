@@ -107,7 +107,9 @@ public class ServiceActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.itemQR){
-        startActivity(new Intent(ServiceActivity.this, QRActivity.class));
+            Intent intent = new Intent(ServiceActivity.this, QRActivity.class);
+            intent.putExtra("Login", false);
+            startActivity(intent);
 
         }
 

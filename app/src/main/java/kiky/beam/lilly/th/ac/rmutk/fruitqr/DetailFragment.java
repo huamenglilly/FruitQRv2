@@ -25,17 +25,22 @@ import org.json.JSONObject;
  */
 public class DetailFragment extends Fragment {
 
-    private  String qrCode, nameString, imageString, amountString, unitString, dateString, idShopString, nameShopString, addressString, phoneString;
+    private  String qrCode, nameString, imageString, amountString, unitString,
+            dateString, idShopString, nameShopString, addressString, phoneString;
+
+    private  boolean loaginABoolean;
 
     public DetailFragment() {
         // Required empty public constructor
     }
 
-    public static DetailFragment detailFragment(String resuliQR) {
+    public static DetailFragment detailFragment(String resuliQR, boolean b) {
+
 
         DetailFragment detailFragment = new DetailFragment();
         Bundle bundle = new Bundle();
         bundle.putString("QRcode", resuliQR);
+        bundle.putBoolean("login",b); //เก็บค่าlogin
         detailFragment.setArguments(bundle);
         return detailFragment;
 
@@ -48,6 +53,8 @@ public class DetailFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        loaginABoolean = getArguments().getBoolean("Login");
+        Log.d("3FebV2", "LoginBool ar Detail ==> " + loaginABoolean); //เก็บค่าย้อนกลับหน้า Qr ในสนเรื
         //Create Tooble
         createTooble();
 
@@ -66,10 +73,14 @@ public class DetailFragment extends Fragment {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() { //ทำปุ่มย้อนกลับไปหน้าที่เริ่มคือ QR
             @Override
             public void onClick(View v) {
-                Intent intent = getActivity().getIntent();
-                getActivity().finish();
-                startActivity(intent);
 
+                if (loaginABoolean) {
+                    Intent intent = getActivity().getIntent();
+                    getActivity().finish();
+                    startActivity(intent);
+                }else {
+                    getActivity().finish();
+                }
             }
         });
     }
