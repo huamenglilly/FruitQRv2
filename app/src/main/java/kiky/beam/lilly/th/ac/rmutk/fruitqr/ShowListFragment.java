@@ -58,6 +58,9 @@ public class ShowListFragment extends Fragment {
         final ArrayList<String> unitStringArrayList = new ArrayList<>();
         final ArrayList<String> imageStringArrayList = new ArrayList<>();
 
+        //user
+        final ArrayList<String> idUserStringArrayList = new ArrayList<>();
+
 
 
         switch (typeUserAnInt) {
@@ -76,6 +79,7 @@ public class ShowListFragment extends Fragment {
                         amountStringArrayList.add(jsonObject.getString("Amount"));
                         unitStringArrayList.add(jsonObject.getString("Unit"));
                         imageStringArrayList.add(jsonObject.getString("Image"));
+                        idUserStringArrayList.add(jsonObject.getString("idUser"));
 
                     }
 
@@ -91,6 +95,8 @@ public class ShowListFragment extends Fragment {
                             intent.putExtra("Amount",amountStringArrayList.get(position));
                             intent.putExtra("Unit",unitStringArrayList.get(position));
                             intent.putExtra("Image",imageStringArrayList.get(position));
+
+                            intent.putExtra("idUser", idUserStringArrayList.get(position));
                             startActivity(intent);
 
 

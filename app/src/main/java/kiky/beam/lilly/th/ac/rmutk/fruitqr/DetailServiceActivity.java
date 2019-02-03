@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 public class DetailServiceActivity extends AppCompatActivity {
 
-    private  String nameString, dateString, amountString, unitString, imageString;
+    private  String nameString, dateString, amountString, unitString, imageString, idUserString;
 
     @Override //ไปหน้า activity_detail_service
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,12 +18,14 @@ public class DetailServiceActivity extends AppCompatActivity {
         unitString = getIntent().getStringExtra("Unit");
         imageString = getIntent().getStringExtra("Image");
 
+        idUserString = getIntent().getStringExtra("idUser");
+
 
 
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.contentDetailServiceFragmet, DetailServiceFragment.detailServiceInstance(nameString, //รับค่า5ตัว
-                        dateString, amountString,unitString,imageString))
+                        dateString, amountString,unitString,imageString,idUserString))
                 .commit();
     }
 }
