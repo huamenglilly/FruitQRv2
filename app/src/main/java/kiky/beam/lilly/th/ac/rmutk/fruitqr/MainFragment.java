@@ -98,7 +98,7 @@ public class MainFragment extends Fragment {
                         Log.d("6janV1","json ==> " + jsonString);
 
                         boolean b = true;
-                        String truePassword = null, name = null;
+                        String truePassword = null, name = null, idString = null; //ถ้ามาตัวแปรตรงนี้
 
                         JSONArray jsonArray = new JSONArray(jsonString);
                         for (int i=0; i<jsonArray.length(); i += 1){
@@ -107,20 +107,22 @@ public class MainFragment extends Fragment {
                                 b = false;
                                 truePassword = jsonObject.getString("Password");
                                 name = jsonObject.getString("Name");
+                                idString = jsonObject.getString("id");
 
                             }
                         }
 
                         if (b){
-                            myAlertDialog.normalDialog("User False", "No This User in My Database");
+                            myAlertDialog.normalDialog("User False", "No This User in My Database"); //ไม่มี User อยู่ในฐานข้อมูล
                         }else if (password.equals(truePassword)) {
                             Toast.makeText(getActivity(),"Welcome"+name,Toast.LENGTH_SHORT).show();;
                             Intent intent = new Intent(getActivity(), ServiceActivity.class);
+                            intent.putExtra("id", idString);
                             startActivity(intent);
                             getActivity().finish(); //คำสั่งปิดแอพ
 
                         }else{
-                            myAlertDialog.normalDialog("Password False","Please Try Again Password False");
+                            myAlertDialog.normalDialog("Password False","Please Try Again Password False"); //รหัสผ่านผิดพลาด กรุณาใส่รหัสผ่านอีกครั้ง
 
                         }
 
