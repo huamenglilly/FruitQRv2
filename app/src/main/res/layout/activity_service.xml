@@ -24,7 +24,12 @@
              android:layout_height="?attr/actionBarSize"/>
 
          <!--android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" ตั้งค่าให้ตัวอักษรเป็นสีขาว-->
+
          <!--Fragment-->
+         <FrameLayout
+             android:id="@+id/contentServiceFragment"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"></FrameLayout>
 
 
      </LinearLayout>

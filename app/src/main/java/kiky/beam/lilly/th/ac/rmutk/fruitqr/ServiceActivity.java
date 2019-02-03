@@ -28,11 +28,16 @@ public class ServiceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service);
 
-        getUser();
+        getUser();// Method ดึงUser มาทำงาน
 
+    } //Main Method เมธรอดหลัก
 
+    private void showList() { //ทำงานหลังจากดึงค่า
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.contentServiceFragment, ShowListFragment.showListInstance(Integer.parseInt(typeUserString))).commit();
 
-    } //Main Method
+    }
 
     private void createToobar() {
         Toolbar toolbar = findViewById(R.id.toobarService);
@@ -54,7 +59,7 @@ public class ServiceActivity extends AppCompatActivity {
         String[] strings = {"", "Admin", "Farmer", "Product", "Customer"};
         try {
 
-            int index = Integer.parseInt(typeUserString.trim());//trim() ป้องกันการใส่เลข ตัดช่องว่างข้างหน้ากับตัดข้างหลัง
+            int index = Integer.parseInt(typeUserString.trim());//trim() ตัดช่องว่างข้างหน้ากับตัดข้างหลัง
             return strings[index];
 
         } catch (Exception e) {
@@ -82,6 +87,8 @@ public class ServiceActivity extends AppCompatActivity {
 //        Create Toobar
 
             createToobar();
+
+            showList(); //ต้องโหลดค่าอื่น ๆ ก่อน ถ้าทำพร้อม getUser จะเกิดค่าว่างเปล่า จึงมาอยู่ใน เมธอด getUser()
 
 
         } catch (Exception e) {
